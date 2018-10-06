@@ -7,11 +7,13 @@ import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -21,7 +23,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 public class Owner {
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	
 	@NotBlank
@@ -36,18 +38,21 @@ public class Owner {
 	@NotBlank
 	private String emailKey;
 	
-	@NotBlank
+	@CreatedDate
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createdAt;
 	
-	@NotBlank
-	@Temporal(TemporalType.TIMESTAMP)
 	@LastModifiedDate
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date updatedAt;
 	
+	//@DOING:
+	@Lob
+	private Byte[] image;
+	
+	//@TODO: @CreatedBy @LastModifiedBy
 	private Long updatedBy;	
 	private String emailKeyRestore;
-	//private byte image;
 	private String address;
 	private String phone;
 
@@ -109,12 +114,13 @@ public class Owner {
 	public void setEmailKeyRestore(String emailKeyRestore) {
 		this.emailKeyRestore = emailKeyRestore;
 	}
-	/*public byte getImage() {
+	
+	public Byte[] getImage() {
 		return image;
 	}
-	public void setImage(byte image) {
+	public void setImage(Byte[] image) {
 		this.image = image;
-	}*/
+	}
 	public String getAddress() {
 		return address;
 	}

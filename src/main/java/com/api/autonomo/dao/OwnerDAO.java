@@ -47,5 +47,5 @@ public class OwnerDAO {
 	public void deleteOwner(Owner owner) {
 		ownerRepository.delete(owner);
 	}
-
+	
 }
