@@ -13,19 +13,19 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
-import com.api.autonomo.dao.OwnerDAO;
 import com.api.autonomo.model.Owner;
+import com.api.autonomo.service.OwnerService;
 
 @RestController
 @RequestMapping("/autonomo")
 public class OwnerController {
 
 	@Autowired
-	OwnerDAO ownerDAO;
+	OwnerService ownerService;
+	
+	FileUploadController fileUploadController;
 	
 	/**
 	 * Save an owner
@@ -34,7 +34,12 @@ public class OwnerController {
 	 */
 	@PostMapping("/owners")
 	public Owner createOwner(@Valid @RequestBody Owner owner) {
-		return ownerDAO.saveOwner(owner);
+		
+		/*if (owner.getImage() != null) {
+			fileUploadController
+		}*/
+		
+		return ownerService.saveOwner(owner);
 	}
 	
 	/**
@@ -43,7 +48,7 @@ public class OwnerController {
 	 */
 	@GetMapping("/owners")
 	public List<Owner> getAllOwners(){
-		return ownerDAO.findAllOwners();
+		return ownerService.findAllOwners();
 	}
 	
 	/**
@@ -54,7 +59,7 @@ public class OwnerController {
 	@GetMapping("/owners/{id}")
 	public ResponseEntity<Owner> getOwnerById(@PathVariable(value="id") Long ownerId){
 		
-		Owner owner = ownerDAO.getOwnerById(ownerId);
+		Owner owner = ownerService.getOwnerById(ownerId);
 		
 		if(owner == null) {
 			return ResponseEntity.notFound().build();
@@ -72,7 +77,7 @@ public class OwnerController {
 	@PutMapping("/owners/{id}")
 	public ResponseEntity<Owner> updateOwnerById(@PathVariable(value="id") Long ownerId, @Valid @RequestBody Owner ownerDetails){
 		
-		Owner owner = ownerDAO.getOwnerById(ownerId);
+		Owner owner = ownerService.getOwnerById(ownerId);
 		
 		if(owner == null) {
 			return ResponseEntity.notFound().build();
@@ -87,9 +92,9 @@ public class OwnerController {
 		owner.setAddress(ownerDetails.getAddress());
 		owner.setPhone(ownerDetails.getPhone());
 		
-		Owner updateOwner = ownerDAO.saveOwner(owner);
+		Owner updatedOwner = ownerService.saveOwner(owner);
 				
-		return ResponseEntity.ok().body(updateOwner);
+		return ResponseEntity.ok().body(updatedOwner);
 	}
 	
 	/**
@@ -100,23 +105,14 @@ public class OwnerController {
 	@DeleteMapping("/owners/{id}")
 	public ResponseEntity<Owner> deleteOwner(@PathVariable(value="id") Long ownerId){
 		
-		Owner owner = ownerDAO.getOwnerById(ownerId);
+		Owner owner = ownerService.getOwnerById(ownerId);
 		
 		if(owner==null) {
 			return ResponseEntity.notFound().build();
 		}
 		
-		ownerDAO.deleteOwner(owner);
+		ownerService.deleteOwner(owner);
 		
 		return ResponseEntity.ok().build();
 	}
-	
-	/** DOING. Image storing
-	@PostMapping("/owners/{id}/image")
-	public String saveImage(@PathVariable String id, @RequestParam("imagefile") MultipartFile file) {
-		
-		imageService.saveImageFile(Long.valueOf(id), file);
-		
-		return "";
-	} */
 }
