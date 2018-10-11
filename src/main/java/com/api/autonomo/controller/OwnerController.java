@@ -25,20 +25,13 @@ public class OwnerController {
 	@Autowired
 	OwnerService ownerService;
 	
-	FileUploadController fileUploadController;
-	
 	/**
 	 * Save an owner
 	 * @param owner
 	 * @return
 	 */
 	@PostMapping("/owners")
-	public Owner createOwner(@Valid @RequestBody Owner owner) {
-		
-		/*if (owner.getImage() != null) {
-			fileUploadController
-		}*/
-		
+	public Owner createOwner(@Valid @RequestBody Owner owner) {		
 		return ownerService.saveOwner(owner);
 	}
 	

@@ -15,9 +15,12 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name="Depots")
 @EntityListeners(AuditingEntityListener.class)
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Depot {
 	
 	@Id
@@ -40,6 +43,17 @@ public class Depot {
 	//@TODO: @CreatedBy @LastModifiedBy
 	private Long updatedBy;
 
+	public Depot(String name, String contentType, Long size, String location) {
+		this.name = name;
+		this.contentType = contentType;
+		this.size = size;
+		this.location = location;
+	}
+	
+	public Depot() {
+		
+	}
+	
 	/**
 	 * Getters and Setters
 	 * 

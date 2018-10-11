@@ -1,10 +1,10 @@
 com\api\autonomo\model\Owner.class
 com\api\autonomo\repository\OwnerRepository.class
 com\api\autonomo\controller\OwnerController.class
-com\api\autonomo\controller\FileUploadController.class
 com\api\autonomo\service\OwnerService.class
 com\api\autonomo\controller\DepotController.class
 com\api\autonomo\OwnerApplication.class
 com\api\autonomo\repository\DepotRepository.class
 com\api\autonomo\model\Depot.class
+com\api\autonomo\properties\FileDepotProperties.class
 com\api\autonomo\service\DepotService.class

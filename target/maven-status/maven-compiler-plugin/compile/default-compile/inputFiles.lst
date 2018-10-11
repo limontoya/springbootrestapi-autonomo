@@ -1,9 +1,9 @@
 C:\APIs\SpringBootRestAPI\springbootrestapi-autonomo\springbootapiautonomo\src\main\java\com\api\autonomo\model\Owner.java
 C:\APIs\SpringBootRestAPI\springbootrestapi-autonomo\springbootapiautonomo\src\main\java\com\api\autonomo\model\Depot.java
 C:\APIs\SpringBootRestAPI\springbootrestapi-autonomo\springbootapiautonomo\src\main\java\com\api\autonomo\OwnerApplication.java
+C:\APIs\SpringBootRestAPI\springbootrestapi-autonomo\springbootapiautonomo\src\main\java\com\api\autonomo\properties\FileDepotProperties.java
 C:\APIs\SpringBootRestAPI\springbootrestapi-autonomo\springbootapiautonomo\src\main\java\com\api\autonomo\repository\DepotRepository.java
 C:\APIs\SpringBootRestAPI\springbootrestapi-autonomo\springbootapiautonomo\src\main\java\com\api\autonomo\service\OwnerService.java
-C:\APIs\SpringBootRestAPI\springbootrestapi-autonomo\springbootapiautonomo\src\main\java\com\api\autonomo\controller\FileUploadController.java
 C:\APIs\SpringBootRestAPI\springbootrestapi-autonomo\springbootapiautonomo\src\main\java\com\api\autonomo\controller\DepotController.java
 C:\APIs\SpringBootRestAPI\springbootrestapi-autonomo\springbootapiautonomo\src\main\java\com\api\autonomo\repository\OwnerRepository.java
 C:\APIs\SpringBootRestAPI\springbootrestapi-autonomo\springbootapiautonomo\src\main\java\com\api\autonomo\service\DepotService.java
