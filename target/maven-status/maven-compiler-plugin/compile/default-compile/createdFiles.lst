@@ -1,11 +1,15 @@
 com\api\autonomo\repository\OwnerRepository.class
+com\api\autonomo\controller\ItemController.class
+com\api\autonomo\model\Item.class
 com\api\autonomo\service\OwnerService.class
 com\api\autonomo\service\ClientService.class
 com\api\autonomo\repository\DepotRepository.class
 com\api\autonomo\model\Depot.class
 com\api\autonomo\model\Owner.class
 com\api\autonomo\controller\OwnerController.class
+com\api\autonomo\service\ItemService.class
 com\api\autonomo\model\Client.class
+com\api\autonomo\repository\ItemRepository.class
 com\api\autonomo\controller\DepotController.class
 com\api\autonomo\OwnerApplication.class
 com\api\autonomo\controller\ClientController.class

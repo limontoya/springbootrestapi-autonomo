@@ -25,16 +25,30 @@ public class ClientController {
 	@Autowired
 	ClientService clientService;
 	
+	/**
+	 * Create a new Client
+	 * @param client
+	 * @return
+	 */
 	@PostMapping("/clients")
 	public Client createClient(@Valid @RequestBody Client client) {
 		return clientService.saveClient(client);
 	}
 	
+	/**
+	 * Get a list of Clients
+	 * @return
+	 */
 	@GetMapping("/clients")
 	public List<Client> getAllClients(){
 		return clientService.findAllClients();
 	}
 	
+	/**
+	 * Get a Client by Id
+	 * @param clientId
+	 * @return
+	 */
 	@GetMapping("/clients/{id}")
 	public ResponseEntity<Client> getClientById(@PathVariable(value="id") Long clientId){
 		
@@ -47,6 +61,12 @@ public class ClientController {
 		return ResponseEntity.ok().body(client);
 	}
 	
+	/**
+	 * Update a Client by Id
+	 * @param clientId
+	 * @param clientDetails
+	 * @return
+	 */
 	@PutMapping("/clients/{id}")
 	public ResponseEntity<Client> updateClientById(@PathVariable(value="id") Long clientId, @Valid @RequestBody Client clientDetails){
 		
@@ -65,6 +85,11 @@ public class ClientController {
 		return ResponseEntity.ok().body(updatedClient);
 	}
 	
+	/**
+	 * Delete a Client by Id
+	 * @param clientId
+	 * @return
+	 */
 	@DeleteMapping("/clients/{id}")
 	public ResponseEntity<Client> deleteClient(@PathVariable(value="id") Long clientId){
 		
