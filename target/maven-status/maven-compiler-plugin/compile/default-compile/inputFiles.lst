@@ -1,6 +1,7 @@
 C:\APIs\SpringBootRestAPI\springbootrestapi-autonomo\springbootapiautonomo\src\main\java\com\api\autonomo\model\Depot.java
 C:\APIs\SpringBootRestAPI\springbootrestapi-autonomo\springbootapiautonomo\src\main\java\com\api\autonomo\repository\DepotRepository.java
 C:\APIs\SpringBootRestAPI\springbootrestapi-autonomo\springbootapiautonomo\src\main\java\com\api\autonomo\service\OwnerService.java
+C:\APIs\SpringBootRestAPI\springbootrestapi-autonomo\springbootapiautonomo\src\main\java\com\api\autonomo\service\InvoiceService.java
 C:\APIs\SpringBootRestAPI\springbootrestapi-autonomo\springbootapiautonomo\src\main\java\com\api\autonomo\controller\ClientController.java
 C:\APIs\SpringBootRestAPI\springbootrestapi-autonomo\springbootapiautonomo\src\main\java\com\api\autonomo\service\ItemService.java
 C:\APIs\SpringBootRestAPI\springbootrestapi-autonomo\springbootapiautonomo\src\main\java\com\api\autonomo\repository\ItemRepository.java
@@ -10,9 +11,12 @@ C:\APIs\SpringBootRestAPI\springbootrestapi-autonomo\springbootapiautonomo\src\m
 C:\APIs\SpringBootRestAPI\springbootrestapi-autonomo\springbootapiautonomo\src\main\java\com\api\autonomo\model\Owner.java
 C:\APIs\SpringBootRestAPI\springbootrestapi-autonomo\springbootapiautonomo\src\main\java\com\api\autonomo\OwnerApplication.java
 C:\APIs\SpringBootRestAPI\springbootrestapi-autonomo\springbootapiautonomo\src\main\java\com\api\autonomo\properties\FileDepotProperties.java
+C:\APIs\SpringBootRestAPI\springbootrestapi-autonomo\springbootapiautonomo\src\main\java\com\api\autonomo\repository\InvoiceRepository.java
 C:\APIs\SpringBootRestAPI\springbootrestapi-autonomo\springbootapiautonomo\src\main\java\com\api\autonomo\repository\ClientRepository.java
 C:\APIs\SpringBootRestAPI\springbootrestapi-autonomo\springbootapiautonomo\src\main\java\com\api\autonomo\model\Client.java
 C:\APIs\SpringBootRestAPI\springbootrestapi-autonomo\springbootapiautonomo\src\main\java\com\api\autonomo\controller\DepotController.java
 C:\APIs\SpringBootRestAPI\springbootrestapi-autonomo\springbootapiautonomo\src\main\java\com\api\autonomo\controller\OwnerController.java
+C:\APIs\SpringBootRestAPI\springbootrestapi-autonomo\springbootapiautonomo\src\main\java\com\api\autonomo\model\Invoice.java
 C:\APIs\SpringBootRestAPI\springbootrestapi-autonomo\springbootapiautonomo\src\main\java\com\api\autonomo\controller\ItemController.java
+C:\APIs\SpringBootRestAPI\springbootrestapi-autonomo\springbootapiautonomo\src\main\java\com\api\autonomo\controller\InvoiceController.java
 C:\APIs\SpringBootRestAPI\springbootrestapi-autonomo\springbootapiautonomo\src\main\java\com\api\autonomo\service\ClientService.java
