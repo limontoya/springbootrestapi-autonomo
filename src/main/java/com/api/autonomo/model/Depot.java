@@ -40,16 +40,25 @@ public class Depot {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date updatedAt;
 	
-	//@TODO: @CreatedBy @LastModifiedBy
+	// TODO: @CreatedBy @LastModifiedBy
 	private Long updatedBy;
 
-	public Depot(String name, String contentType, Long size, String location) {
+	/**
+	 * Constructors
+	 * 
+	 */
+	public Depot(Long id, String name, String contentType, Long size, String location, Date createdAt, Date updatedAt,
+			Long updatedBy) {
+		this.id = id;
 		this.name = name;
 		this.contentType = contentType;
 		this.size = size;
 		this.location = location;
+		this.createdAt = createdAt;
+		this.updatedAt = updatedAt;
+		this.updatedBy = updatedBy;
 	}
-	
+
 	public Depot() {
 		
 	}
@@ -120,6 +129,12 @@ public class Depot {
 
 	public void setUpdatedBy(Long updatedBy) {
 		this.updatedBy = updatedBy;
+	}
+
+	@Override
+	public String toString() {
+		return "Depot [id=" + id + ", name=" + name + ", contentType=" + contentType + ", size=" + size + ", location="
+				+ location + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", updatedBy=" + updatedBy + "]";
 	}
 
 }

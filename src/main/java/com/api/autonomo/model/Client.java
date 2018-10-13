@@ -45,9 +45,37 @@ public class Client {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date updatedAt;
 	
-	//@TODO: @CreatedBy @LastModifiedBy
+	// TODO: @CreatedBy @LastModifiedBy
 	private Long updatedBy;
+	
+	/**
+	 * Constructors
+	 * 
+	 */
+	public Client (String name, String nid, String phone) {
+		this.name = name;
+		this.nid = nid;
+		this.phone = phone;
+	}
 
+	public Client(Long id, String name, String nid, String phone, Date createdAt, Date updatedAt, Long updatedBy) {
+		this.id = id;
+		this.name = name;
+		this.nid = nid;
+		this.phone = phone;
+		this.createdAt = createdAt;
+		this.updatedAt = updatedAt;
+		this.updatedBy = updatedBy;
+	}
+
+	public Client () {
+		
+	}
+	
+	/**
+	 * Getters and Setters
+	 * 
+	 */
 	public Long getId() {
 		return id;
 	}
@@ -102,6 +130,12 @@ public class Client {
 
 	public void setUpdatedBy(Long updatedBy) {
 		this.updatedBy = updatedBy;
+	}
+
+	@Override
+	public String toString() {
+		return "Client [id=" + id + ", name=" + name + ", nid=" + nid + ", phone=" + phone + ", createdAt=" + createdAt
+				+ ", updatedAt=" + updatedAt + ", updatedBy=" + updatedBy + "]";
 	}
 	
 }

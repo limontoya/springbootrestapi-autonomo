@@ -3,6 +3,8 @@ package com.api.autonomo.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.api.autonomo.model.Item;
@@ -46,6 +48,16 @@ public class ItemService {
 	 */
 	public void deleteItem(Item item) {
 		itemRepository.delete(item);
+	}
+	
+	/**
+	 * Search Item(s) by Invoice Id
+	 * @param invoiceId
+	 * @param pageable
+	 * @return
+	 */
+	public Page<Item> findByInvoiceId(Long invoiceId, Pageable pageable){
+		return itemRepository.findByInvoiceId(invoiceId, pageable);
 	}
 
 }

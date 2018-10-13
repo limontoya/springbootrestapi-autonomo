@@ -5,6 +5,8 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,6 +27,9 @@ public class ItemController {
 	@Autowired
 	ItemService itemService;
 	
+	@Autowired
+	ItemService invoiceService;
+	
 	/**
 	 * Create a new Item for invoice
 	 * @param item
@@ -42,6 +47,15 @@ public class ItemController {
 	@GetMapping("/items")
 	public List<Item> getAllItems() {
 		return itemService.findAllItems();
+	}
+	
+	/**
+	 * Search all items by Invoice Id
+	 * @return
+	 */
+	@GetMapping("/invoices/{invoiceId}/items")
+	public Page<Item> findByInvoiceId(@PathVariable(value="invoiceId") Long invoiceId, Pageable pageable){
+		return invoiceService.findByInvoiceId(invoiceId, pageable); 
 	}
 	
 	/**

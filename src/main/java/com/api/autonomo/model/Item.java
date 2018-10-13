@@ -4,9 +4,12 @@ import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -35,6 +38,11 @@ public class Item {
 	private Double unitCost;
 	private Double amount;
 	
+	//@JsonManagedReference
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "invoice_id", nullable=false)
+	private Invoice invoice;
+	
 	@CreatedDate
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createdAt;
@@ -43,9 +51,49 @@ public class Item {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date updatedAt;
 	
-	//@TODO: @CreatedBy @LastModifiedBy
+	// TODO: @CreatedBy @LastModifiedBy
 	private Long updatedBy;
+	
+	/**
+	 * Constructors
+	 * 
+	 */
+	public Item (String description, Long quantity, Double unitCost, Double amount) {
+		this.description = description;
+		this.quantity = quantity;
+		this.unitCost = unitCost;
+		this.amount = amount;
+	}
+	
+	public Item (String description, Long quantity, Double unitCost, Double amount, Invoice invoice) {
+		this.description = description;
+		this.quantity = quantity;
+		this.unitCost = unitCost;
+		this.amount = amount;
+		this.invoice = invoice;
+	}
+	
+	public Item(Long id, String description, Long quantity, Double unitCost, Double amount, Invoice invoice,
+			Date createdAt, Date updatedAt, Long updatedBy) {
+		this.id = id;
+		this.description = description;
+		this.quantity = quantity;
+		this.unitCost = unitCost;
+		this.amount = amount;
+		this.invoice = invoice;
+		this.createdAt = createdAt;
+		this.updatedAt = updatedAt;
+		this.updatedBy = updatedBy;
+	}
 
+	public Item () {
+		
+	}
+	
+	/**
+	 * Getters and Setters
+	 * 
+	 */
 	public Long getId() {
 		return id;
 	}
@@ -108,6 +156,21 @@ public class Item {
 
 	public void setUpdatedBy(Long updatedBy) {
 		this.updatedBy = updatedBy;
+	}
+
+	public Invoice getInvoice() {
+		return invoice;
+	}
+
+	public void setInvoice(Invoice invoice) {
+		this.invoice = invoice;
+	}
+
+	@Override
+	public String toString() {
+		return "Item [id=" + id + ", description=" + description + ", quantity=" + quantity + ", unitCost=" + unitCost
+				+ ", amount=" + amount + ", invoice=" + invoice + ", createdAt=" + createdAt + ", updatedAt="
+				+ updatedAt + ", updatedBy=" + updatedBy + "]";
 	}
 
 }

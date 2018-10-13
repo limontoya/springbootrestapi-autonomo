@@ -15,7 +15,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.api.autonomo.model.Client;
+import com.api.autonomo.model.Depot;
 import com.api.autonomo.model.Invoice;
+import com.api.autonomo.service.ClientService;
+import com.api.autonomo.service.DepotService;
 import com.api.autonomo.service.InvoiceService;
 
 @RestController
@@ -25,6 +29,12 @@ public class InvoiceController {
 	@Autowired
 	InvoiceService invoiceService;
 	
+	@Autowired
+	ClientService clientService;
+	
+	@Autowired
+	DepotService depotService;
+	
 	/**
 	 * Save an invoice
 	 * @param invoice
@@ -32,6 +42,23 @@ public class InvoiceController {
 	 */
 	@PostMapping("/invoices")
 	public Invoice createInvoice(@Valid @RequestBody Invoice invoice) {
+		//One invoice to many items
+		invoice.getItems().forEach(item->item.setInvoice(invoice));
+		
+		//One client to One Invoice
+		//>If client exists, set the existing client; else create a new Client
+		if( invoice.getClient().getId() != null){		
+			Client client = clientService.getClientById(invoice.getClient().getId());		
+			invoice.setClient(client);
+		}
+		
+		//One depot to One Invoice pdf file
+		//>If depot exists, set the existing depot; else create a new Depot
+		if( invoice.getDepot().getId() != null){		
+			Depot depot = depotService.getDepotById(invoice.getDepot().getId());		
+			invoice.setDepot(depot);
+		}
+		
 		return invoiceService.saveInvoice(invoice);
 	}
 	
@@ -74,13 +101,24 @@ public class InvoiceController {
 		if (invoice == null) {
 			return ResponseEntity.notFound().build();
 		}
-		
+		System.out.println("Invoice NO soy null> "+invoice.getId() );
 		invoice.setDate(invoiceDetails.getDate());
 		invoice.setNetAmount(invoiceDetails.getNetAmount());
 		invoice.setNotes(invoiceDetails.getNotes());
 		invoice.setTotalAmount(invoiceDetails.getTotalAmount());
 		invoice.setVatBase(invoiceDetails.getVatBase());
 		invoice.setVatPercentage(invoiceDetails.getVatPercentage());
+		
+		//One to many
+		System.out.println("Items de invoice> "+invoiceDetails.getItems().toString() );
+		invoiceDetails.getItems().forEach(item->item.setInvoice(invoice));
+		invoice.setItems(invoiceDetails.getItems());		
+		//One to one
+		System.out.println("Cliente de invoice> "+invoiceDetails.getClient().toString() );
+		if(!invoice.getClient().getId().equals(invoiceDetails.getClient().getId()))	invoice.setClient(invoiceDetails.getClient());
+		//One to one
+		System.out.println("Depot de invoice> "+invoiceDetails.getDepot().toString() );
+		if(!invoice.getDepot().getId().equals(invoiceDetails.getDepot().getId())) invoice.setDepot(invoiceDetails.getDepot());
 		
 		Invoice updatedInvoice = invoiceService.saveInvoice(invoice);
 		
