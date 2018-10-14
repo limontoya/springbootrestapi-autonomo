@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.api.autonomo.model.Owner;
 
 @Repository
-public interface OwnerRepository extends JpaRepository<Owner, Long>{
+public interface OwnerRepository extends JpaRepository<Owner, Long> {
 
 }

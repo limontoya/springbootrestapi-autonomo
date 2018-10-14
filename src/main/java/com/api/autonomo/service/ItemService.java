@@ -12,51 +12,56 @@ import com.api.autonomo.repository.ItemRepository;
 
 @Service
 public class ItemService {
-	
+
 	@Autowired
 	ItemRepository itemRepository;
-	
+
 	/**
 	 * Save an invoice item
+	 * 
 	 * @param item
 	 * @return
 	 */
 	public Item saveItem(Item item) {
 		return itemRepository.save(item);
 	}
-	
+
 	/**
 	 * Search all Items
+	 * 
 	 * @return
 	 */
-	public List<Item> findAllItems(){
+	public List<Item> findAllItems() {
 		return itemRepository.findAll();
 	}
-	
+
 	/**
 	 * Search an Item by Id
+	 * 
 	 * @param itemId
 	 * @return
 	 */
 	public Item getItemById(Long itemId) {
 		return itemRepository.getOne(itemId);
 	}
-	
+
 	/**
 	 * Delete an Item
+	 * 
 	 * @param item
 	 */
 	public void deleteItem(Item item) {
 		itemRepository.delete(item);
 	}
-	
+
 	/**
 	 * Search Item(s) by Invoice Id
+	 * 
 	 * @param invoiceId
 	 * @param pageable
 	 * @return
 	 */
-	public Page<Item> findByInvoiceId(Long invoiceId, Pageable pageable){
+	public Page<Item> findByInvoiceId(Long invoiceId, Pageable pageable) {
 		return itemRepository.findByInvoiceId(invoiceId, pageable);
 	}
 

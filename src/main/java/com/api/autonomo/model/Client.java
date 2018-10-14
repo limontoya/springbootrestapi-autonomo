@@ -19,40 +19,40 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-@Table(name="Clients")
+@Table(name = "Clients")
 @EntityListeners(AuditingEntityListener.class)
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class Client {
-	
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@NotBlank
 	private String name;
-	
+
 	@NotBlank
 	private String nid;
-	
+
 	@NotBlank
 	private String phone;
-	
+
 	@CreatedDate
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createdAt;
-	
+
 	@LastModifiedDate
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date updatedAt;
-	
+
 	// TODO: @CreatedBy @LastModifiedBy
 	private Long updatedBy;
-	
+
 	/**
 	 * Constructors
 	 * 
 	 */
-	public Client (String name, String nid, String phone) {
+	public Client(String name, String nid, String phone) {
 		this.name = name;
 		this.nid = nid;
 		this.phone = phone;
@@ -68,10 +68,10 @@ public class Client {
 		this.updatedBy = updatedBy;
 	}
 
-	public Client () {
-		
+	public Client() {
+
 	}
-	
+
 	/**
 	 * Getters and Setters
 	 * 
@@ -137,5 +137,5 @@ public class Client {
 		return "Client [id=" + id + ", name=" + name + ", nid=" + nid + ", phone=" + phone + ", createdAt=" + createdAt
 				+ ", updatedAt=" + updatedAt + ", updatedBy=" + updatedBy + "]";
 	}
-	
+
 }

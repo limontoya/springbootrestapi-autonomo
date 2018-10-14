@@ -9,10 +9,10 @@ import com.api.autonomo.properties.FileDepotProperties;
 
 @SpringBootApplication
 @EnableJpaAuditing
-@EnableConfigurationProperties({FileDepotProperties.class})
+@EnableConfigurationProperties({ FileDepotProperties.class })
 public class OwnerApplication {
-	
-	public static void main (String [] args) {
+
+	public static void main(String[] args) {
 		SpringApplication.run(OwnerApplication.class, args);
 	}
 

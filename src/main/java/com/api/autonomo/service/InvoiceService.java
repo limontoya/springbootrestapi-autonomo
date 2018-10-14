@@ -10,38 +10,42 @@ import com.api.autonomo.repository.InvoiceRepository;
 
 @Service
 public class InvoiceService {
-	
+
 	@Autowired
 	InvoiceRepository invoiceRepository;
-	
+
 	/**
 	 * Save or update an invoice
+	 * 
 	 * @param invoice
 	 * @return
 	 */
 	public Invoice saveInvoice(Invoice invoice) {
 		return invoiceRepository.save(invoice);
 	}
-	
+
 	/**
 	 * Get all invoices
+	 * 
 	 * @return
 	 */
-	public List<Invoice> findAllInvoices(){
+	public List<Invoice> findAllInvoices() {
 		return invoiceRepository.findAll();
 	}
-	
+
 	/**
 	 * Get an invoice by Id
+	 * 
 	 * @param invoiceId
 	 * @return
 	 */
 	public Invoice getInvoiceById(Long invoiceId) {
 		return invoiceRepository.getOne(invoiceId);
 	}
-	
+
 	/**
 	 * Delete an invoice
+	 * 
 	 * @param invoice
 	 */
 	public void deleteInvoice(Invoice invoice) {

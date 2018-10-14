@@ -8,8 +8,8 @@ import org.springframework.stereotype.Repository;
 import com.api.autonomo.model.Item;
 
 @Repository
-public interface ItemRepository extends JpaRepository<Item, Long>{
-	
+public interface ItemRepository extends JpaRepository<Item, Long> {
+
 	Page<Item> findByInvoiceId(Long invoiceId, Pageable pageable);
 
 }

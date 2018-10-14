@@ -18,28 +18,28 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-@Table(name="Depots")
+@Table(name = "Depots")
 @EntityListeners(AuditingEntityListener.class)
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class Depot {
-	
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	private String name;
 	private String contentType;
 	private Long size;
 	private String location;
-	
+
 	@CreatedDate
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createdAt;
-	
+
 	@LastModifiedDate
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date updatedAt;
-	
+
 	// TODO: @CreatedBy @LastModifiedBy
 	private Long updatedBy;
 
@@ -60,9 +60,9 @@ public class Depot {
 	}
 
 	public Depot() {
-		
+
 	}
-	
+
 	/**
 	 * Getters and Setters
 	 * 

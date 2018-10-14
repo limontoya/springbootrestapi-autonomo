@@ -23,48 +23,55 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
-@Table(name="Invoices")
+@Table(name = "Invoices")
 @EntityListeners(AuditingEntityListener.class)
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class Invoice {
-	
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	private Date date;
+
 	private Double netAmount;
 	private Double vatBase;
 	private Long vatPercentage;
 	private Double totalAmount;
 	private String notes;
-	
+
 	@JsonBackReference
-	@OneToMany(mappedBy="invoice", cascade=CascadeType.ALL, fetch = FetchType.LAZY)
-	@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
+	@OneToMany(mappedBy = "invoice", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 	private List<Item> items = new ArrayList<Item>();
-	
-	@OneToOne(cascade=CascadeType.PERSIST)
-	@JoinColumn(name="client_id")
+
+	@OneToOne(cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "client_id")
 	private Client client;
-	
-	@OneToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name="depot_pdf_id")
+
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "depot_pdf_id")
 	private Depot depot;
-	
+
+	@OneToOne(cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "owner_id")
+	private Owner owner;
+
 	@CreatedDate
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createdAt;
-	
+
 	@LastModifiedDate
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date updatedAt;
-	
+
 	// TODO: @CreatedBy @LastModifiedBy
 	private Long updatedBy;
 
@@ -72,7 +79,7 @@ public class Invoice {
 	 * Constructors
 	 * 
 	 */
-	public Invoice (Date date, Double netAmount, Double vatBase, Long vatPercentage, Double totalAmount, String notes) {
+	public Invoice(Date date, Double netAmount, Double vatBase, Long vatPercentage, Double totalAmount, String notes) {
 		this.date = date;
 		this.netAmount = netAmount;
 		this.vatBase = vatBase;
@@ -80,8 +87,9 @@ public class Invoice {
 		this.totalAmount = totalAmount;
 		this.notes = notes;
 	}
-	
-	public Invoice (Date date, Double netAmount, Double vatBase, Long vatPercentage, Double totalAmount, String notes, List<Item> items) {
+
+	public Invoice(Date date, Double netAmount, Double vatBase, Long vatPercentage, Double totalAmount, String notes,
+			List<Item> items) {
 		this.date = date;
 		this.netAmount = netAmount;
 		this.vatBase = vatBase;
@@ -90,8 +98,9 @@ public class Invoice {
 		this.notes = notes;
 		this.items = items;
 	}
-	
-	public Invoice (Date date, Double netAmount, Double vatBase, Long vatPercentage, Double totalAmount, String notes, List<Item> items, Client client) {
+
+	public Invoice(Date date, Double netAmount, Double vatBase, Long vatPercentage, Double totalAmount, String notes,
+			List<Item> items, Client client) {
 		this.date = date;
 		this.netAmount = netAmount;
 		this.vatBase = vatBase;
@@ -101,8 +110,9 @@ public class Invoice {
 		this.items = items;
 		this.client = client;
 	}
-	
-	public Invoice (Date date, Double netAmount, Double vatBase, Long vatPercentage, Double totalAmount, String notes, List<Item> items, Client client, Depot depot) {
+
+	public Invoice(Date date, Double netAmount, Double vatBase, Long vatPercentage, Double totalAmount, String notes,
+			List<Item> items, Client client, Depot depot) {
 		this.date = date;
 		this.netAmount = netAmount;
 		this.vatBase = vatBase;
@@ -113,9 +123,10 @@ public class Invoice {
 		this.client = client;
 		this.depot = depot;
 	}
-	
+
 	public Invoice(Long id, Date date, Double netAmount, Double vatBase, Long vatPercentage, Double totalAmount,
-			String notes, List<Item> items, Client client, Depot depot, Date createdAt, Date updatedAt,	Long updatedBy) {
+			String notes, List<Item> items, Client client, Depot depot, Date createdAt, Date updatedAt,
+			Long updatedBy) {
 		this.id = id;
 		this.date = date;
 		this.netAmount = netAmount;
@@ -131,14 +142,33 @@ public class Invoice {
 		this.updatedBy = updatedBy;
 	}
 
-	public Invoice () {
-		
+	public Invoice(Long id, Date date, Double netAmount, Double vatBase, Long vatPercentage, Double totalAmount,
+			String notes, List<Item> items, Client client, Depot depot, Owner owner, Date createdAt, Date updatedAt,
+			Long updatedBy) {
+		this.id = id;
+		this.date = date;
+		this.netAmount = netAmount;
+		this.vatBase = vatBase;
+		this.vatPercentage = vatPercentage;
+		this.totalAmount = totalAmount;
+		this.notes = notes;
+		this.items = items;
+		this.client = client;
+		this.depot = depot;
+		this.owner = owner;
+		this.createdAt = createdAt;
+		this.updatedAt = updatedAt;
+		this.updatedBy = updatedBy;
+	}
+
+	public Invoice() {
+
 	}
 
 	/**
 	 * Getters and Setters
 	 * 
-	 */	
+	 */
 	public Long getId() {
 		return id;
 	}
@@ -219,6 +249,14 @@ public class Invoice {
 		this.depot = depot;
 	}
 
+	public Owner getOwner() {
+		return owner;
+	}
+
+	public void setOwner(Owner owner) {
+		this.owner = owner;
+	}
+
 	public Date getCreatedAt() {
 		return createdAt;
 	}
@@ -242,30 +280,38 @@ public class Invoice {
 	public void setUpdatedBy(Long updatedBy) {
 		this.updatedBy = updatedBy;
 	}
-		
+
 	@Override
 	public String toString() {
-				
+
 		String invoiceDetails = String.format("Invoice [id=%d, date='%s']%n", id, date);
-		
-		invoiceDetails+=", netAmount=" + netAmount + ", vatBase=" + vatBase
-					+ ", vatPercentage=" + vatPercentage + ", totalAmount=" + totalAmount + ", notes=" + notes 
-					+ ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", updatedBy=" + updatedBy + "]%n";
-			
-		if(items != null) {
-			for(Item item : items) {
-				invoiceDetails += String.format("Items [id=%d, description='%s']%n", item.getId(), item.getDescription());
+
+		invoiceDetails += ", netAmount=" + netAmount + ", vatBase=" + vatBase + ", vatPercentage=" + vatPercentage
+				+ ", totalAmount=" + totalAmount + ", notes=" + notes + ", createdAt=" + createdAt + ", updatedAt="
+				+ updatedAt + ", updatedBy=" + updatedBy + "]%n";
+
+		if (items != null) {
+			for (Item item : items) {
+				invoiceDetails += String.format("Items [id=%d, description='%s']%n", item.getId(),
+						item.getDescription());
 			}
 		}
-		
-		if(client != null) {
-			invoiceDetails += String.format("Client [id=%d, nid='%s', name='%s', phone='%s']%n", client.getId(), client.getNid(), client.getName(), client.getPhone());
+
+		if (client != null) {
+			invoiceDetails += String.format("Client [id=%d, nid='%s', name='%s', phone='%s']%n", client.getId(),
+					client.getNid(), client.getName(), client.getPhone());
 		}
-		
-		if(depot != null) {
-			invoiceDetails += String.format("Depot [id=%d, name='%s', size='%s', location='%s']%n", depot.getId(), depot.getName(), depot.getSize(), depot.getLocation());
+
+		if (depot != null) {
+			invoiceDetails += String.format("Depot [id=%d, name='%s', size='%s', location='%s']%n", depot.getId(),
+					depot.getName(), depot.getSize(), depot.getLocation());
 		}
-		
+
+		if (owner != null) {
+			invoiceDetails += String.format("Owner [id=%d, nid='%s', name='%s', email='%s', phone='%s']%n",
+					owner.getId(), owner.getNid(), owner.getEmail(), owner.getPhone());
+		}
+
 		return invoiceDetails;
-	}		
+	}
 }

@@ -22,57 +22,57 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-@Table(name="Items")
+@Table(name = "Items")
 @EntityListeners(AuditingEntityListener.class)
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class Item {
-	
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@NotBlank
 	private String description;
-	
+
 	private Long quantity;
 	private Double unitCost;
 	private Double amount;
-	
-	//@JsonManagedReference
+
+	// @JsonManagedReference
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "invoice_id", nullable=false)
+	@JoinColumn(name = "invoice_id", nullable = false)
 	private Invoice invoice;
-	
+
 	@CreatedDate
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createdAt;
-	
+
 	@LastModifiedDate
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date updatedAt;
-	
+
 	// TODO: @CreatedBy @LastModifiedBy
 	private Long updatedBy;
-	
+
 	/**
 	 * Constructors
 	 * 
 	 */
-	public Item (String description, Long quantity, Double unitCost, Double amount) {
+	public Item(String description, Long quantity, Double unitCost, Double amount) {
 		this.description = description;
 		this.quantity = quantity;
 		this.unitCost = unitCost;
 		this.amount = amount;
 	}
-	
-	public Item (String description, Long quantity, Double unitCost, Double amount, Invoice invoice) {
+
+	public Item(String description, Long quantity, Double unitCost, Double amount, Invoice invoice) {
 		this.description = description;
 		this.quantity = quantity;
 		this.unitCost = unitCost;
 		this.amount = amount;
 		this.invoice = invoice;
 	}
-	
+
 	public Item(Long id, String description, Long quantity, Double unitCost, Double amount, Invoice invoice,
 			Date createdAt, Date updatedAt, Long updatedBy) {
 		this.id = id;
@@ -86,10 +86,10 @@ public class Item {
 		this.updatedBy = updatedBy;
 	}
 
-	public Item () {
-		
+	public Item() {
+
 	}
-	
+
 	/**
 	 * Getters and Setters
 	 * 

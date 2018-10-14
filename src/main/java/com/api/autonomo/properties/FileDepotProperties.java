@@ -4,7 +4,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 
 @ConfigurationProperties(prefix = "file")
 public class FileDepotProperties {
-	
+
 	private String uploadDirectory;
 	private String notAvailable;
 	private String contentType;

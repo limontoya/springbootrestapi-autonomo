@@ -2,11 +2,14 @@ package com.api.autonomo.model;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -19,42 +22,43 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-@Table(name="Owners")
+@Table(name = "Owners")
 @EntityListeners(AuditingEntityListener.class)
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class Owner {
-	
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@NotBlank
 	private String nid;
-	
+
 	@NotBlank
 	private String name;
-		
+
 	@NotBlank
 	private String email;
-	
+
 	@NotBlank
 	private String emailKey;
-	
+
 	private String emailKeyRestore;
 	private String address;
 	private String phone;
-	
-	// TODO: One to one with Depot @OneToOne
-	//private Long image;
-	
+
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "depot_id")
+	private Depot depot;
+
 	@CreatedDate
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createdAt;
-	
+
 	@LastModifiedDate
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date updatedAt;
-	
+
 	// TODO: @CreatedBy @LastModifiedBy
 	private Long updatedBy;
 
@@ -62,8 +66,8 @@ public class Owner {
 	 * Constructors
 	 * 
 	 */
-	public Owner(Long id, String nid, String name, String email, String emailKey, String emailKeyRestore, 
-			String address, String phone, Date createdAt, Date updatedAt, Long updatedBy) {
+	public Owner(Long id, String nid, String name, String email, String emailKey, String emailKeyRestore,
+			String address, String phone, Depot depot, Date createdAt, Date updatedAt, Long updatedBy) {
 		this.id = id;
 		this.nid = nid;
 		this.name = name;
@@ -72,19 +76,20 @@ public class Owner {
 		this.emailKeyRestore = emailKeyRestore;
 		this.address = address;
 		this.phone = phone;
+		this.depot = depot;
 		this.createdAt = createdAt;
 		this.updatedAt = updatedAt;
 		this.updatedBy = updatedBy;
 	}
-	
+
 	public Owner() {
-		
+
 	}
 
 	/**
 	 * Getters and Setters
 	 * 
-	 */	
+	 */
 	public Long getId() {
 		return id;
 	}
@@ -149,6 +154,14 @@ public class Owner {
 		this.phone = phone;
 	}
 
+	public Depot getDepot() {
+		return depot;
+	}
+
+	public void setDepot(Depot depot) {
+		this.depot = depot;
+	}
+
 	public Date getCreatedAt() {
 		return createdAt;
 	}
@@ -172,5 +185,13 @@ public class Owner {
 	public void setUpdatedBy(Long updatedBy) {
 		this.updatedBy = updatedBy;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "Owner [id=" + id + ", nid=" + nid + ", name=" + name + ", email=" + email + ", emailKey=" + emailKey
+				+ ", emailKeyRestore=" + emailKeyRestore + ", address=" + address + ", phone=" + phone + ", depot=["
+				+ depot.toString() + "], createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", updatedBy="
+				+ updatedBy + "]";
+	}
+
 }
