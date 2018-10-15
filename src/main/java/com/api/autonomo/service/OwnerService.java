@@ -52,4 +52,14 @@ public class OwnerService {
 		ownerRepository.delete(owner);
 	}
 
+	/**
+	 * Find an Owner by Email
+	 * 
+	 * @param ownerEmail
+	 * @return
+	 */
+	public Owner findbyOwnerEmail(String ownerEmail) {
+		return ownerRepository.findbyOwnerEmail(ownerEmail);
+	}
+
 }

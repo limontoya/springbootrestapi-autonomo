@@ -1,6 +1,7 @@
 package com.api.autonomo.model;
 
 import java.util.Date;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -9,6 +10,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -43,6 +46,9 @@ public class Owner {
 	@NotBlank
 	private String emailKey;
 
+	@NotBlank
+	private String emailKeyConfirm;
+	
 	private String emailKeyRestore;
 	private String address;
 	private String phone;
@@ -50,6 +56,8 @@ public class Owner {
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "depot_id")
 	private Depot depot;
+
+	public Set<Role> roles;
 
 	@CreatedDate
 	@Temporal(TemporalType.TIMESTAMP)
@@ -66,17 +74,20 @@ public class Owner {
 	 * Constructors
 	 * 
 	 */
-	public Owner(Long id, String nid, String name, String email, String emailKey, String emailKeyRestore,
-			String address, String phone, Depot depot, Date createdAt, Date updatedAt, Long updatedBy) {
+	public Owner(Long id, String nid, String name, String email, String emailKey, String emailKeyConfirm, String emailKeyRestore,
+			String address, String phone, Depot depot, Set<Role> roles, Date createdAt,
+			Date updatedAt, Long updatedBy) {
 		this.id = id;
 		this.nid = nid;
 		this.name = name;
 		this.email = email;
 		this.emailKey = emailKey;
+		this.emailKeyConfirm = emailKeyConfirm;
 		this.emailKeyRestore = emailKeyRestore;
 		this.address = address;
 		this.phone = phone;
 		this.depot = depot;
+		this.roles = roles;
 		this.createdAt = createdAt;
 		this.updatedAt = updatedAt;
 		this.updatedBy = updatedBy;
@@ -130,6 +141,14 @@ public class Owner {
 		this.emailKey = emailKey;
 	}
 
+	public String getEmailKeyConfirm() {
+		return emailKeyConfirm;
+	}
+
+	public void setEmailKeyConfirm(String emailKeyConfirm) {
+		this.emailKeyConfirm = emailKeyConfirm;
+	}
+
 	public String getEmailKeyRestore() {
 		return emailKeyRestore;
 	}
@@ -162,6 +181,16 @@ public class Owner {
 		this.depot = depot;
 	}
 
+	@ManyToMany
+	@JoinTable(name = "owners_roles", joinColumns = @JoinColumn(name = "owner_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+	public Set<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
+	}
+	
 	public Date getCreatedAt() {
 		return createdAt;
 	}
@@ -193,5 +222,4 @@ public class Owner {
 				+ depot.toString() + "], createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", updatedBy="
 				+ updatedBy + "]";
 	}
-
 }

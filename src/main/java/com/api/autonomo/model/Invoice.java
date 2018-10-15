@@ -60,7 +60,7 @@ public class Invoice {
 	@JoinColumn(name = "depot_pdf_id")
 	private Depot depot;
 
-	@OneToOne(cascade = CascadeType.PERSIST)
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "owner_id")
 	private Owner owner;
 
@@ -303,13 +303,14 @@ public class Invoice {
 		}
 
 		if (depot != null) {
-			invoiceDetails += String.format("Depot [id=%d, name='%s', size='%s', location='%s']%n", depot.getId(),
+			invoiceDetails += String.format("Depot [id=%d, name='%s', size=%d, location='%s']%n", depot.getId(),
 					depot.getName(), depot.getSize(), depot.getLocation());
 		}
 
 		if (owner != null) {
-			invoiceDetails += String.format("Owner [id=%d, nid='%s', name='%s', email='%s', phone='%s']%n",
-					owner.getId(), owner.getNid(), owner.getEmail(), owner.getPhone());
+			invoiceDetails += String.format(
+					"Owner [id=%d, nid='%s', name='%s', address='%s', email='%s', phone='%s']%n", owner.getId(),
+					owner.getNid(), owner.getName(), owner.getAddress(), owner.getEmail(), owner.getPhone());
 		}
 
 		return invoiceDetails;

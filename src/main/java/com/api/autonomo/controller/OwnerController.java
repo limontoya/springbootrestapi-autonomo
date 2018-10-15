@@ -1,11 +1,13 @@
 package com.api.autonomo.controller;
 
+import java.util.HashSet;
 import java.util.List;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,8 +19,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.api.autonomo.model.Depot;
 import com.api.autonomo.model.Owner;
+import com.api.autonomo.model.Role;
 import com.api.autonomo.service.DepotService;
 import com.api.autonomo.service.OwnerService;
+import com.api.autonomo.service.RoleService;
 
 @RestController
 @RequestMapping("/autonomo")
@@ -30,6 +34,12 @@ public class OwnerController {
 	@Autowired
 	DepotService depotService;
 
+	@Autowired
+	RoleService roleService;
+
+	@Autowired
+	BCryptPasswordEncoder bCryptPasswordEncoder;
+
 	/**
 	 * Save an owner
 	 * 
@@ -38,6 +48,10 @@ public class OwnerController {
 	 */
 	@PostMapping("/owners")
 	public Owner createOwner(@Valid @RequestBody Owner owner) {
+
+		// Authentication
+		owner.setEmailKey(bCryptPasswordEncoder.encode(owner.getEmailKey()));
+		owner.setRoles(new HashSet<Role>(roleService.findAllRoles()));
 
 		// One Depot to One Owner
 		// If depot exists, set the existing depot; else create a new Depot
@@ -129,5 +143,16 @@ public class OwnerController {
 		ownerService.deleteOwner(owner);
 
 		return ResponseEntity.ok().build();
+	}
+
+	/* AUTHENTICATION BY OWNER */
+	/**
+	 * Find an owner by Email
+	 * 
+	 * @param ownerEmail
+	 * @return
+	 */
+	public Owner findbyOwnerEmail(String ownerEmail) {
+		return ownerService.findbyOwnerEmail(ownerEmail);
 	}
 }

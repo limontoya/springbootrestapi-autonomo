@@ -75,8 +75,8 @@ public class InvoiceController {
 		else {
 			//else TODO GET Owner from Session
 			throw new Exception("Session expirated! Please Log in ...");
-		}		
-
+		}	
+		
 		return invoiceService.saveInvoice(invoice);
 	}
 
